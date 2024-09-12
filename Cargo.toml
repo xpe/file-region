@@ -1,0 +1,16 @@
+[package]
+name = "file-region"
+version = "0.1.0"
+edition = "2021"
+
+description = "Encapsulates a contiguous byte range of a file"
+repository = "https://github.com/xpe/file-region"
+readme = "README.md"
+license = "MIT OR Apache-2.0"
+categories = ["filesystem"]
+
+[lib]
+path = "src/lib.rs"
+
+[dev-dependencies]
+tempfile = "3.2"
