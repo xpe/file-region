@@ -17,6 +17,18 @@ impl<'a> FileRegion<'a> {
         FileRegion { file, range }
     }
 
+    /// Creates a new `FileRegion`, validating the `range` against the `file`.
+    /// Returns `Ok(FileRegion)` if valid. Can return `Err(io::Error)` due to
+    /// invalid range or I/O errors during validation.
+    pub fn try_new(file: &'a File, range: Range<u64>) -> IoResult<FileRegion> {
+        let region = FileRegion::new(file, range);
+        if region.is_valid()? {
+            Ok(region)
+        } else {
+            Err(IoError::new(InvalidInput, "Invalid file range"))
+        }
+    }
+
     /// Creates a new `FileRegion` spanning the entire `file`. Validity is
     /// guaranteed.
     pub fn from_file(file: &'a File) -> IoResult<FileRegion<'a>> {
