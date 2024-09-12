@@ -1,8 +1,8 @@
-use file_region::FileRegion;
+use file_region::{FileRegion, FileRegionError};
 use std::io::{Read, Seek, SeekFrom, Write};
 use tempfile::tempfile;
 
-fn main() -> std::io::Result<()> {
+fn main() -> Result<(), FileRegionError> {
     let mut file = tempfile()?;
     file.write_all(b"Hello, FileRegion.")?;
 
